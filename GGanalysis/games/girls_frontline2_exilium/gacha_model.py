@@ -17,6 +17,8 @@ __all__ = [
     'up_elite_weapon',
     'up_common_weapon',
     'up_common_specific_weapon',
+    'notup_common_character',
+    'common_character'
 ]
 
 # 少女前线2：追放普通精英道具保底概率表（推测值）
@@ -45,6 +47,7 @@ PITY_COMMON_W[10] = 1
 # 定义获取星级物品的模型
 common_elite = PityModel(PITY_ELITE)
 common_common = PityModel(PITY_COMMON)
+
 weapon_elite = PityModel(PITY_ELITE_W)
 weapon_common = PityModel(PITY_COMMON_W)
 
@@ -53,21 +56,28 @@ weapon_common = PityModel(PITY_COMMON_W)
 up_elite = DualPityModel(PITY_ELITE, [0, 0.5, 1])
 up_common_character = PityBernoulliModel(PITY_COMMON, p=0.25)
 up_common_specific_character = PityBernoulliModel(PITY_COMMON, p=0.25/2)
+
 up_elite_weapon = DualPityModel(PITY_ELITE_W, [0, 0.75, 1])
 up_common_weapon = PityBernoulliModel(PITY_COMMON_W, p=0.75)
 up_common_specific_weapon = PityBernoulliModel(PITY_COMMON_W, p=0.75/3)
 
+# 由于四星卡池相对较浅，补充从常驻与up池获取非up四星角色的概率
+notup_common_character = PityBernoulliModel(PITY_COMMON, p=0.25/7)
+common_character = PityBernoulliModel(PITY_COMMON, p=0.5/9)
+
 if __name__ == '__main__':
     # print(PITY_ELITE[58:])
     print("精英人形期望与综合概率", common_elite(1).exp, 1/common_elite(1).exp)
-    print("限定精英人形期望与综合概率",up_elite(1).exp, 1/up_elite(1).exp)
+    print("精英人形抽数分布", common_elite(1)[50:68])
+    print("精英人形抽数分布", common_elite(1).cdf[50:68])
+    #print("限定精英人形期望与综合概率",up_elite(1).exp, 1/up_elite(1).exp)
     # print(PITY_COMMON)
     # print(common_common(1).exp, 1/common_common(1).exp)
     # print(PITY_ELITE[50:])
-    print("精英武器期望与综合概率",weapon_elite(1).exp, 1/weapon_elite(1).exp)
-    print("限定精英武器期望与综合概率",up_elite_weapon(1).exp, 1/up_elite_weapon(1).exp)
+    #print("精英武器期望与综合概率",weapon_elite(1).exp, 1/weapon_elite(1).exp)
+    #print("限定精英武器期望与综合概率",up_elite_weapon(1).exp, 1/up_elite_weapon(1).exp)
     # print(PITY_COMMON_W)
     # print(weapon_common(1).exp, 1/weapon_common(1).exp)
-    print("单体UP标准角色期望与综合概率",up_common_specific_character(1).exp, 1/up_common_specific_character(1).exp)
-    print("单体UP标准武器期望与综合概率",up_common_specific_weapon(1).exp, 1/up_common_specific_weapon(1).exp)
+    #print("单体UP标准角色期望与综合概率",up_common_specific_character(1).exp, 1/up_common_specific_character(1).exp)
+    #print("单体UP标准武器期望与综合概率",up_common_specific_weapon(1).exp, 1/up_common_specific_weapon(1).exp)
     pass

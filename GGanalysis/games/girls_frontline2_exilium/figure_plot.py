@@ -45,6 +45,32 @@ GF2_fig = QuantileFunction(
         is_finite=False)
 GF2_fig.show_figure(dpi=300, savefig=True)
 
+# 少前2追放特定非UP标准角色-up池
+GF2_fig = QuantileFunction(
+        GF2.notup_common_character(item_num=7, multi_dist=True),
+        title='少前2追放特定非UP标准人形抽取概率',
+        item_name='特定非UP标准人形',
+        text_head='采用GGanalysis库绘制\n本算例中UP物品均不在常驻祈愿中\n绘图曲线忽略精英与标准耦合情况',
+        text_tail=time.strftime('%Y-%m-%d',time.localtime(time.time())),
+        max_pull=3000,
+        mark_func=gf2_character,
+        line_colors=cm.Blues(np.linspace(0.5, 0.9, 7+1)),
+        is_finite=False)
+GF2_fig.show_figure(dpi=300, savefig=True)
+
+# 少前2追放特定标准角色-常驻池
+GF2_fig = QuantileFunction(
+        GF2.common_character(item_num=7, multi_dist=True),
+        title='少前2追放特定常驻标准人形抽取概率',
+        item_name='特定常驻标准人形',
+        text_head='采用GGanalysis库绘制\n本算例中UP物品均不在常驻祈愿中\n绘图曲线忽略精英与标准耦合情况',
+        text_tail=time.strftime('%Y-%m-%d',time.localtime(time.time())),
+        max_pull=2000,
+        mark_func=gf2_character,
+        line_colors=cm.Greens(np.linspace(0.5, 0.9, 7+1)),
+        is_finite=False)
+GF2_fig.show_figure(dpi=300, savefig=True)
+
 # 少前2追放定轨UP精英武器
 GF2_fig = QuantileFunction(
         GF2.up_elite_weapon(item_num=6, multi_dist=True),
@@ -70,3 +96,4 @@ GF2_fig = QuantileFunction(
         line_colors=cm.Oranges(np.linspace(0.5, 0.9, 6+1)),
         is_finite=False)
 GF2_fig.show_figure(dpi=300, savefig=True)
+
